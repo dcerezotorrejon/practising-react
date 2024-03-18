@@ -3,7 +3,7 @@ import { MappedFilm, SearchResult } from "../models/models";
 import { OMDBapi } from "../api/OMDB-api";
 export function useFilms () {
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const [results, setResults] = useState<SearchResult>();
+    const results = useRef<SearchResult|null>(null);
     const lastSearch = useRef<string>(''); 
     let films: MappedFilm[] = [];
     const api =  new OMDBapi('3d1213a1');
@@ -17,16 +17,18 @@ export function useFilms () {
         api.search(trimmedSearch)
             .then (
                 (data) => {
-                    setResults(data);
+                    results.current = data;
                 }
-            , () => {})
+            , () => {
+                results.current = null;
+            })
             .finally(()=> {
                 setIsLoading(false);
             })
     }
 
-    if (results?.Response === 'True') {
-        films = results.Search.map((films) => {
+    if (results.current?.Response === 'True') {
+        films = results.current.Search.map((films) => {
                 return {
                     poster: films.Poster,
                     title: films.Title,
