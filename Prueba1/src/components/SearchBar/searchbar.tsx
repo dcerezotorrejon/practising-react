@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import './searchbar.css'
+import SearchBarCSS from './Searchbar.module.css'
 interface SearchCallback {
     (searchValue: string): void;
   }
@@ -24,9 +24,9 @@ export function SearchBar ({onSearchSubmit}: inputs) {
     }
 
     return (
-    <form onSubmit={handleSubmit}>
-        <input name="searchValue" className="searchText" onKeyUp={handleKeyUp} placeholder="Avengers, James Bond, Operación UNCLE" id="" />
-        <button className="searchAction" type='submit'>Buscar</button>
+    <form onSubmit={handleSubmit} className={SearchBarCSS.searchForm}>
+        <input name="searchValue" className={SearchBarCSS.searchText} onKeyUp={handleKeyUp} placeholder="Avengers, James Bond, Operación UNCLE" id="" />
+        <button className={SearchBarCSS.searchAction} type='submit'>Buscar</button>
     </form>
     )
 }
