@@ -1,6 +1,6 @@
 
 import './App.css'
-import { SearchBar } from './components/SearchBar/Searchbar'
+import { SearchBar } from './components/SearchBar/searchbar'
 import { SearchResults } from './components/SearchResultsArea/SearchResultsArea'
 import { useFilms } from './hooks/useFilm'
 
