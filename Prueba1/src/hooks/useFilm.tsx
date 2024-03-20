@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import { MappedFilm, SearchResult } from "../models/models";
 import { OMDBapi } from "../api/OMDB-api";
 export function useFilms () {
@@ -7,7 +7,7 @@ export function useFilms () {
     const lastSearch = useRef<string>(''); 
     let films: MappedFilm[] = [];
     const api =  new OMDBapi('3d1213a1');
-    const getFilms = (searchCriteria :string = '') => {
+    const getFilms = useCallback((searchCriteria :string = '') => {
         const trimmedSearch = searchCriteria.trim();
         if (trimmedSearch.length === 0 || lastSearch.current === trimmedSearch) {
             return false;
@@ -25,7 +25,7 @@ export function useFilms () {
             .finally(()=> {
                 setIsLoading(false);
             })
-    }
+    },[])
 
     if (results.current?.Response === 'True') {
         films = results.current.Search.map((films) => {

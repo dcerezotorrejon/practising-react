@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import './searchbar.css'
 interface SearchCallback {
     (searchValue: string): void;
@@ -8,21 +8,20 @@ interface inputs {
 }
 export function SearchBar ({onSearchSubmit}: inputs) {
     const debounceRef = useRef(-1);
-    const handleSubmit = (ev: React.SyntheticEvent<HTMLFormElement>) => {
+    const handleSubmit = useCallback((ev: React.SyntheticEvent<HTMLFormElement>) => {
         ev.preventDefault();
         const formData = new FormData(ev.target as HTMLFormElement)
         onSearchSubmit(formData.get('searchValue') as string);
-    }
+    },[onSearchSubmit]);
 
-    const handleKeyUp = (ev: React.BaseSyntheticEvent<KeyboardEvent> ) => {
+    const handleKeyUp = useCallback( (ev: React.BaseSyntheticEvent<KeyboardEvent> ) => {
         if(debounceRef.current !== -1 ) {
             clearTimeout(debounceRef.current)
         }
         debounceRef.current = setTimeout(()=>{
             onSearchSubmit(ev.target.value);
         },350)
-    }
-
+    },[onSearchSubmit])
     return (
     <form onSubmit={handleSubmit}>
         <input name="searchValue" className="searchText" onKeyUp={handleKeyUp} placeholder="Avengers, James Bond, Operación UNCLE" id="" />
