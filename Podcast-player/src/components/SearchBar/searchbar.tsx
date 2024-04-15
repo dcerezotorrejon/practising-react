@@ -1,15 +1,17 @@
-import { useCallback, useId, useRef } from 'react';
-import styles from'./searchbar.module.css'
+import { ReactNode, useCallback, useId, useRef } from 'react';
+import styles from './searchbar.module.css';
 interface SearchCallback {
     (searchValue: string): void;
   }
 interface inputs {
     onSearchSubmit : SearchCallback,
     placeholder: string,
-    debounceTime: number,
-    searchLiteral: string
+    debounceTime?: number,
+    searchLiteral?: string,
+    customClasses?: string,
+    children?:ReactNode
 }
-export function SearchBar ({onSearchSubmit, placeholder}: inputs) {
+export function SearchBar ({onSearchSubmit, placeholder, debounceTime, children, customClasses}: inputs) {
     const debounceRef = useRef(-1);
     const formID = useId();
     const inputID = useId();
@@ -33,12 +35,12 @@ export function SearchBar ({onSearchSubmit, placeholder}: inputs) {
                 onSearchSubmit(value);
             }
             
-        },350)
-    },[onSearchSubmit])
+        }, debounceTime)
+    },[debounceTime, onSearchSubmit])
     return (
-    <form onSubmit={handleSubmit} className={styles.form} id={formID} >
+    <form onSubmit={handleSubmit} className={styles.form + (customClasses??'')} id={formID} >
         <input id={inputID} className={styles.searchText} name="searchValue"  onKeyUp={handleKeyUp} placeholder={placeholder}/>
-        <button id={buttonID} className={styles.searchAction} type='submit'>Buscar</button>
+        <button id={buttonID} className={styles.searchAction} type='submit'>{children}</button>
     </form>
     )
 }

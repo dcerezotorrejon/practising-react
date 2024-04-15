@@ -16,16 +16,16 @@ export function SearchBar ({onSearchSubmit}: inputs) {
 
     const handleKeyUp = useCallback( (ev: React.BaseSyntheticEvent<KeyboardEvent> ) => {
         if(debounceRef.current !== -1 ) {
-            clearTimeout(debounceRef.current)
+            window.clearTimeout(debounceRef.current)
         }
-        debounceRef.current = setTimeout(()=>{
+        debounceRef.current = window.setTimeout(()=>{
             onSearchSubmit(ev.target.value);
         },350)
     },[onSearchSubmit])
     return (
     <form onSubmit={handleSubmit}>
         <input name="searchValue" className="searchText" onKeyUp={handleKeyUp} placeholder="Avengers, James Bond, Operación UNCLE" id="" />
-        <button className="searchAction" type='submit'>Buscar</button>
+        <button className="searchAction" type='submit'></button>
     </form>
     )
 }

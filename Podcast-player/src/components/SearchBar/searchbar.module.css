@@ -5,7 +5,8 @@
     align-items: stretch;
     padding: 0;
     max-width: none;
-    min-width: none;
+    overflow: hidden;
+    border-radius: 4rem;
 
 }
 .searchText { 
@@ -15,8 +16,16 @@
     border: none;
     margin: 0;
     max-width: none;
+    overflow: hidden;
+    &:focus {
+        border-radius: 4rem 0 0 4rem;
+    }
 }
 .searchAction {
+    display: flex;
+    flex-flow: row nowrap;
+    gap: 0.5rem;
+    align-items: center;
     flex-grow: 0;
     padding: 0.8rem;
     margin: 0;
