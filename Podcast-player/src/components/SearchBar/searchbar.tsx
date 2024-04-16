@@ -25,7 +25,7 @@ export const SearchBar = memo( ({onSearchSubmit, placeholder, debounceTime, chil
 
         const handleKeyUp = (ev: React.BaseSyntheticEvent<KeyboardEvent> ) => {
             if(debounceRef.current !== -1 ) {
-                clearTimeout(debounceRef.current)
+                window.clearTimeout(debounceRef.current)
             }
             debounceRef.current = setTimeout(()=>{
                 const value:string  = (ev.target.value ?? '').trim();
@@ -39,7 +39,7 @@ export const SearchBar = memo( ({onSearchSubmit, placeholder, debounceTime, chil
         }
         return (
         <form onSubmit={handleSubmit} className={styles.form + (` ${customClasses}`??'')} id={formID} >
-            <input id={inputID} className={styles.searchText} name="searchValue"  onKeyUp={handleKeyUp} placeholder={placeholder}/>
+            <input autoComplete='off' id={inputID} className={styles.searchText} name="searchValue"  onKeyUp={handleKeyUp} placeholder={placeholder}/>
             <button id={buttonID} className={styles.searchAction} type='submit'>{children}</button>
         </form>
         )
