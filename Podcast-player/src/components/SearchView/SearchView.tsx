@@ -13,6 +13,7 @@ export function SearchView () {
         <div className={style.searchview}>
             <SearchBar onSearchSubmit={onSearchSubmit}
             placeholder='Busca tu podcast favorito'
+            customClasses={style.searchbar}
             debounceTime={350}><Search/>Buscar</SearchBar>
             <SearchResult result={result}></SearchResult>
         </div>

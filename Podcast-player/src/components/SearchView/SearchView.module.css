@@ -3,5 +3,7 @@
     flex-flow: column;
     max-width: 90%;
     margin: 2rem auto;
-    gap:1.5rem
+    gap:1.5rem;
+    align-items: center;
 }
+
