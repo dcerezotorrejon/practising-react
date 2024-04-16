@@ -1,23 +1,18 @@
 
-import { useCallback, useState } from 'react';
 import { SearchBar } from '../SearchBar/searchbar'
 import style from './SearchView.module.css'
-import { Search } from 'lucide-react';
 import { SearchResult } from '../SearchResult/SearchResult';
+import { useSearchPodcast } from '../../hooks/useSearch';
 export function SearchView () {
-    const  [result, setResult] = useState('No hay búsqueda')
-    const onSearchSubmit = useCallback((seachValue: string)=> {
-    setResult(seachValue);
-  },[])
+    const {podcastSearchState, search} = useSearchPodcast();
     return (
         <div className={style.searchview}>
-            <SearchBar onSearchSubmit={onSearchSubmit}
+            <SearchBar onSearchSubmit={search}
                 placeholder='Busca tu podcast favorito'
                 customClasses={style.searchbar}
-                debounceTime={350}>
-                    <Search/>Buscar
+                debounceTime={500}>Buscar
             </SearchBar>
-            <SearchResult result={result}></SearchResult>
+            <SearchResult result={JSON.stringify(podcastSearchState.result) as string}></SearchResult>
         </div>
     )
 }

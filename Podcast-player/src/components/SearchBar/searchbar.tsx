@@ -1,5 +1,6 @@
 import { ReactNode, memo, useId, useRef } from 'react';
 import styles from './searchbar.module.css';
+import { Search } from 'lucide-react';
 interface SearchCallback {
     (searchValue: string): void;
   }
@@ -40,7 +41,7 @@ export const SearchBar = memo( ({onSearchSubmit, placeholder, debounceTime, chil
         return (
         <form onSubmit={handleSubmit} className={styles.form + (` ${customClasses}`??'')} id={formID} >
             <input autoComplete='off' id={inputID} className={styles.searchText} name="searchValue"  onKeyUp={handleKeyUp} placeholder={placeholder}/>
-            <button id={buttonID} className={styles.searchAction} type='submit'>{children}</button>
+            <button id={buttonID} className={styles.searchAction} type='submit'><Search/>{children}</button>
         </form>
         )
     
