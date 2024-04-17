@@ -10,8 +10,9 @@ export function SearchView () {
             <SearchBar onSearchSubmit={search}
                 placeholder='Busca tu podcast favorito'
                 customClasses={style.searchbar}
-                debounceTime={500}>Buscar
-            </SearchBar>
+                debounceTime={500}
+                buttonTitle='Buscar'
+                />
             <SearchResult result={JSON.stringify(podcastSearchState.result) as string}></SearchResult>
         </div>
     )
