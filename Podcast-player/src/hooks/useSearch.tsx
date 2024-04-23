@@ -1,12 +1,13 @@
 import { useCallback, useRef, useState } from "react"
 import { ItunesAPI } from "../api/ITunesApi";
+import { Podcast } from "../models/models";
 
 export enum PodcastSearchStatesEnum {
-    LOADING, SUCCESS, NOT_FOUND, ERROR, EMPTY
+    LOADING, SUCCESS, ERROR, SEARCH_EMPTY
 }
-interface UseSearchState {
+export interface UseSearchState {
     state:  PodcastSearchStatesEnum,
-    result : unknown
+    result : Podcast[] |null
 }
 
 export const useSearchPodcast = () => {
@@ -18,11 +19,12 @@ export const useSearchPodcast = () => {
 
     const  search = useCallback((searchTerm = '')=> {
         if(searchTerm.length === 0) {
-            return setPodcastSearchState({state: PodcastSearchStatesEnum.EMPTY,  result: null});
+            return setPodcastSearchState({state: PodcastSearchStatesEnum.SEARCH_EMPTY,  result: null});
         }
+        setPodcastSearchState({state: PodcastSearchStatesEnum.LOADING,  result: null});
         api.search({term: searchTerm}).then(
             (result)=> {
-                setPodcastSearchState({state: PodcastSearchStatesEnum.SUCCESS,  result});
+                setPodcastSearchState({state: PodcastSearchStatesEnum.SUCCESS,  result: result.results});
             },
             () => {
                 setPodcastSearchState({state : PodcastSearchStatesEnum.ERROR, result: null});

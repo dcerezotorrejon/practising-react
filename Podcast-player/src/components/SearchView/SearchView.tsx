@@ -1,7 +1,7 @@
 
-import { SearchBar } from '../SearchBar/searchbar'
+import { SearchBar } from '../SearchBar/SearchBar';
 import style from './SearchView.module.css'
-import { SearchResult } from '../SearchResult/SearchResult';
+import {  SearchResults } from '../SearchResults/SearchResults';
 import { useSearchPodcast } from '../../hooks/useSearch';
 export function SearchView () {
     const {podcastSearchState, search} = useSearchPodcast();
@@ -13,7 +13,7 @@ export function SearchView () {
                 debounceTime={500}
                 buttonTitle='Buscar'
                 />
-            <SearchResult result={JSON.stringify(podcastSearchState.result) as string}></SearchResult>
+            <SearchResults results={podcastSearchState}></SearchResults>
         </div>
     )
 }
