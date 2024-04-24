@@ -1,5 +1,5 @@
 
-import { SearchBar } from '../SearchBar/SearchBar';
+import { SearchBar } from '../SearchBar/SearchBar'
 import style from './SearchView.module.css'
 import {  SearchResults } from '../SearchResults/SearchResults';
 import { useSearchPodcast } from '../../hooks/useSearch';
