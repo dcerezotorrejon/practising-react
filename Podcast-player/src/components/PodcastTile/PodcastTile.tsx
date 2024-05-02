@@ -9,7 +9,6 @@ interface PodcastTileProps {
 export function PodcastTile({ podcast }: PodcastTileProps) {
   const [imgLoading, setImgLoading] = useState(true);
   const handleLoad = useCallback((event: SyntheticEvent<HTMLImageElement>) => {
-    window.console.log();
     setImgLoading(false);
     return event.target;
   }, []);
