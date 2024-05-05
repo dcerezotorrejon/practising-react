@@ -1,0 +1,6 @@
+.mainLayout{
+    display: grid;
+    grid-template-areas: 
+         "nav" "main" ;
+    grid-template-columns: 1fr 2fr;
+}
