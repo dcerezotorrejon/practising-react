@@ -45,7 +45,7 @@ export const SearchBar = memo(function SearchBar({
   return (
     <form
       onSubmit={handleSubmit}
-      className={styles.form + (customClasses ?? "")}
+      className={`${styles.form} ${customClasses ?? ""}`}
       id={formID}
     >
       <input

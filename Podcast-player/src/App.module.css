@@ -1,6 +1,34 @@
-.mainLayout{
-    display: grid;
-    grid-template-areas: 
-         "nav" "main" ;
-    grid-template-columns: 1fr 2fr;
+
+.layout {
+     display: grid;
+     grid-template-areas: 
+     "main" 
+     "nav";
+     grid-template-columns: 100%;
+     grid-template-rows:  1fr 5rem;
+     min-height: 100%;
+     width: 100%;
+
 }
+.navigation{
+    grid-area: nav;
+    height: 100%;
+    background-color: wheat;
+    
+}
+.main {
+    grid-area: main;
+    position: relative;
+    overflow-y: auto;
+    
+
+
+}
+.scrollableContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    
+}
+
