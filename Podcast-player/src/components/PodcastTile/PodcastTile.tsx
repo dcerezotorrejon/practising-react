@@ -14,17 +14,21 @@ export function PodcastTile({ podcast }: PodcastTileProps) {
   }, []);
   return (
     <div className={style.tile}>
-      <picture className={imgLoading ? skeletonStyle.skeleton : ""}>
-        <source media="(max-width: 30px)" srcSet={podcast.artworkUrl30} />
-        <source media="(max-width: 60px)" srcSet={podcast.artworkUrl60} />
-        <source media="(max-width: 100px)" srcSet={podcast.artworkUrl100} />
-        <img
-          loading="lazy"
-          style={imgLoading ? { visibility: "hidden" } : {}}
-          src={podcast.artworkUrl600}
-          onLoad={handleLoad}
-        />
-      </picture>
+      <div className={style.tileImage}>
+        <picture className={imgLoading ? skeletonStyle.skeleton : ""}>
+          <source media="(max-width: 30px)" srcSet={podcast.artworkUrl30} />
+          <source media="(max-width: 60px)" srcSet={podcast.artworkUrl60} />
+          <source media="(max-width: 100px)" srcSet={podcast.artworkUrl100} />
+          <img
+            loading="lazy"
+            style={imgLoading ? { visibility: "hidden" } : {}}
+            src={podcast.artworkUrl600}
+            onLoad={handleLoad}
+          />
+        </picture>
+      </div>
+
+      <span className={style.tileTitle}>{podcast.trackName}</span>
     </div>
   );
 }

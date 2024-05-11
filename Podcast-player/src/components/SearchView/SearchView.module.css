@@ -7,7 +7,6 @@
     align-items: center;
 }
 .searchbar {
-    position: sticky;
     top: 2rem;
     z-index: 1;
 }
