@@ -1,15 +1,20 @@
 import "./styles/global.css";
 import style from "./App.module.css";
-import { SearchView } from "./components/SearchView/SearchView";
 import { NavBar } from "./components/NavBar/NavBar";
+import { Suspense, lazy } from "react";
 
 function App() {
+  const SearchView = lazy(
+    () => import("./components/SearchView/SearchView.tsx")
+  );
   return (
     <div className={style.layout}>
       <NavBar containerClass={style.navigation}></NavBar>
       <div className={style.main}>
         <div className={style.scrollableContainer}>
-          <SearchView></SearchView>
+          <Suspense>
+            <SearchView></SearchView>
+          </Suspense>
         </div>
       </div>
     </div>
