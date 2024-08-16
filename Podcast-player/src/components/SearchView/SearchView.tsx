@@ -1,16 +1,15 @@
-import { SearchBar } from "../SearchBar/Searchbar";
+import { SearchBar } from "../SearchBar/searchbar";
 import style from "./SearchView.module.css";
 import { SearchResults } from "../SearchResults/SearchResults";
-import { useSearchPodcast } from "../../hooks/useSearch";
+import { SearchContext } from "../Contexts/SearchContext";
+import { useContext } from "react";
 export default function SearchView() {
-  const { podcastSearchState, search } = useSearchPodcast();
+  const { podcastSearchState } = useContext(SearchContext);
   return (
     <div className={style.searchview}>
       <SearchBar
-        onSearchSubmit={search}
         placeholder="Busca tu podcast favorito"
         customClasses={style.searchbar}
-        debounceTime={500}
         buttonTitle="Buscar"
       />
       <SearchResults results={podcastSearchState}></SearchResults>

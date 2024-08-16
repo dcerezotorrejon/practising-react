@@ -2,6 +2,7 @@ import "./styles/global.css";
 import style from "./App.module.css";
 import { NavBar } from "./components/NavBar/NavBar";
 import { Suspense, lazy } from "react";
+import { SearchContextProvider } from "./components/Contexts/SearchContext.tsx";
 const SearchView = lazy(() => import("./components/SearchView/SearchView.tsx"));
 function App() {
   return (
@@ -10,7 +11,9 @@ function App() {
       <div className={style.main}>
         <div className={style.scrollableContainer}>
           <Suspense>
-            <SearchView></SearchView>
+            <SearchContextProvider>
+              <SearchView></SearchView>
+            </SearchContextProvider>
           </Suspense>
         </div>
       </div>
