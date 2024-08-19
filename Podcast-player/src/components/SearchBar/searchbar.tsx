@@ -1,4 +1,4 @@
-import { useId, FormEvent, useContext } from "react";
+import { useId, FormEvent, useContext, useCallback } from "react";
 import styles from "./searchbar.module.css";
 import { SearchContext } from "../Contexts/SearchContext";
 import { SearchButton } from "../SearchButton/SearchButton";
@@ -17,18 +17,23 @@ export const SearchBar = function SearchBar({
   const inputID = useId();
   const buttonID = useId();
 
-  const { searchTerm, setSearchTerm } = useContext(SearchContext);
+  const { setSearchTerm } = useContext(SearchContext);
 
-  const handleSubmit = (event: FormEvent) => {
-    event.preventDefault();
-    const form = new FormData(event.target as HTMLFormElement);
-    console.log("submit");
-    setSearchTerm(form.get("searchValue") as string);
-  };
+  const handleSubmit = useCallback(
+    (event: FormEvent) => {
+      event.preventDefault();
+      const form = new FormData(event.target as HTMLFormElement);
+      setSearchTerm(form.get("searchValue") as string);
+    },
+    [setSearchTerm]
+  );
 
-  const handleChange = (ev: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(ev.target.value);
-  };
+  const handleChange = useCallback(
+    (ev: React.ChangeEvent<HTMLInputElement>) => {
+      setSearchTerm(ev.target.value);
+    },
+    [setSearchTerm]
+  );
   return (
     <>
       <form
@@ -41,7 +46,6 @@ export const SearchBar = function SearchBar({
           id={inputID}
           className={styles.searchText}
           name="searchValue"
-          value={searchTerm}
           onChange={handleChange}
           placeholder={placeholder}
         />

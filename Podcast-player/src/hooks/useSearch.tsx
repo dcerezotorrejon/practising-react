@@ -7,6 +7,7 @@ export enum PodcastSearchStatesEnum {
   SUCCESS,
   ERROR,
   SEARCH_EMPTY,
+  EMPTY,
 }
 export interface UseSearchState {
   state: PodcastSearchStatesEnum;
