@@ -16,6 +16,7 @@ export interface UseSearchState {
 
 export const useSearchPodcast = () => {
   const api = useRef<ItunesAPI>(new ItunesAPI()).current;
+  const lastSearchAbortCtrl = useRef<AbortController>(new AbortController());
   const [podcastSearchState, setPodcastSearchState] = useState<UseSearchState>({
     state: PodcastSearchStatesEnum.EMPTY,
     result: null,
@@ -24,7 +25,7 @@ export const useSearchPodcast = () => {
   const search = useCallback(
     (searchTerm = "") => {
       if (searchTerm.length === 0) {
-        api.abortLastSearch();
+        lastSearchAbortCtrl.current.abort();
         return setPodcastSearchState({
           state: PodcastSearchStatesEnum.SEARCH_EMPTY,
           result: null,
@@ -34,7 +35,10 @@ export const useSearchPodcast = () => {
         state: PodcastSearchStatesEnum.LOADING,
         result: null,
       });
-      api.search({ term: searchTerm }).then(
+      lastSearchAbortCtrl.current.abort();
+      const apiRequest = api.search({ term: searchTerm });
+      lastSearchAbortCtrl.current = apiRequest.abortController;
+      apiRequest.reponsePromise.then(
         (result) => {
           setPodcastSearchState({
             state: PodcastSearchStatesEnum.SUCCESS,

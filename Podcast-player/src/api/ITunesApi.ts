@@ -4,19 +4,19 @@ interface APIParams {
   term: string;
 }
 export class ItunesAPI {
-  private LastAbortController = new AbortController();
-  public search = async ({ term }: APIParams): Promise<PodcastSearch> => {
-    this.abortLastSearch();
-    this.LastAbortController = new AbortController();
+  public search = ({ term }: APIParams) => {
+    const abortController = new AbortController();
     const encodedTerm = window.encodeURI(term);
-    const f = await fetch(
+    const fetchData = fetch(
       `https://itunes.apple.com/search?media=podcast&term=${encodedTerm}`,
-      { signal: this.LastAbortController.signal }
+      { signal: abortController.signal }
     );
-    return f.json();
-  };
-
-  public abortLastSearch = () => {
-    this.LastAbortController.abort();
+    const reponsePromise = fetchData.then(
+      (data) => data.json() as Promise<PodcastSearch>
+    );
+    return {
+      reponsePromise,
+      abortController,
+    };
   };
 }
