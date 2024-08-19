@@ -1,7 +1,6 @@
 import "./styles/global.css";
 import style from "./App.module.css";
 //import { NavBar } from "./components/NavBar/NavBar";
-import { SearchContextProvider } from "./components/Contexts/SearchContext.tsx";
 import SearchView from "./components/SearchView/SearchView.tsx";
 
 function App() {
@@ -9,9 +8,7 @@ function App() {
     <div className={style.layout}>
       <div className={style.main}>
         <div className={style.scrollableContainer}>
-          <SearchContextProvider>
-            <SearchView></SearchView>
-          </SearchContextProvider>
+          <SearchView></SearchView>
         </div>
       </div>
     </div>

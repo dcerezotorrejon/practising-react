@@ -1,11 +1,12 @@
-import { PodcastSearchStatesEnum, UseSearchState } from "../../hooks/useSearch";
+import { useContext } from "react";
+import { PodcastSearchStatesEnum } from "../../hooks/useSearch";
 import { PodcastTile } from "../PodcastTile/PodcastTile";
 import { Spinner } from "../Spinner/Spinner";
 import style from "./SearchResults.module.css";
-interface SearchResultProps {
-  results: UseSearchState;
-}
-export function SearchResults({ results }: SearchResultProps) {
+import { SearchContext } from "../Contexts/SearchContext";
+export function SearchResults() {
+  const { showLoading, podcastSearchState: results } =
+    useContext(SearchContext);
   const loadingView = <Spinner />;
   const errorView = <p>There was an error retrieving data</p>;
   const resultContainerView = (
@@ -20,5 +21,8 @@ export function SearchResults({ results }: SearchResultProps) {
     [PodcastSearchStatesEnum.ERROR]: errorView,
     [PodcastSearchStatesEnum.SUCCESS]: resultContainerView,
   };
+  if (showLoading) {
+    return <Spinner />;
+  }
   return <div className={style.container}>{renderMap[results.state]}</div>;
 }
