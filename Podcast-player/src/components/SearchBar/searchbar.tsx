@@ -1,6 +1,5 @@
 import { useId, FormEvent, useContext } from "react";
 import styles from "./searchbar.module.css";
-import { Search } from "lucide-react";
 import { SearchContext } from "../Contexts/SearchContext";
 import { SearchButton } from "../SearchButton/SearchButton";
 
