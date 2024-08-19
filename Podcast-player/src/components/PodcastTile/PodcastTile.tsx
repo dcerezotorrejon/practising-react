@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useState } from "react";
+import { SyntheticEvent, useCallback, useState, useTransition } from "react";
 import { Podcast } from "../../models/models";
 import skeletonStyle from "../../styles/skeleton.module.css";
 import style from "./PodcastTile.module.css";
@@ -8,8 +8,11 @@ interface PodcastTileProps {
 }
 export function PodcastTile({ podcast }: PodcastTileProps) {
   const [imgLoading, setImgLoading] = useState(true);
+  const [, setImgTrans] = useTransition();
   const handleLoad = useCallback((event: SyntheticEvent<HTMLImageElement>) => {
-    setImgLoading(false);
+    setImgTrans(() => {
+      setImgLoading(false);
+    });
     return event.target;
   }, []);
   return (

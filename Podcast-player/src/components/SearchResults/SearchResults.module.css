@@ -4,3 +4,8 @@
     width: 100%;
     grid-template-columns: repeat(auto-fill, minmax(max(160px, 19%), 1fr));
 }
+.container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
