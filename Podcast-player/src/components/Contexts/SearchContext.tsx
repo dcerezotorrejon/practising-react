@@ -1,11 +1,4 @@
-import {
-  createContext,
-  ReactNode,
-  useDeferredValue,
-  useEffect,
-  useRef,
-  useState,
-} from "react";
+import { createContext, ReactNode, useEffect, useRef, useState } from "react";
 
 interface SearchContextType {
   setSearchTerm: React.Dispatch<React.SetStateAction<string>>;
@@ -22,15 +15,14 @@ export const SearchContextProvider = ({
   children: ReactNode;
 }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const deferredSearchTerm = useDeferredValue(searchTerm);
   const { podcastSearchState, search } = useSearchPodcast();
   const debounceRef = useRef(-1);
   useEffect(() => {
     window.clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
-      search(deferredSearchTerm ?? "");
-    }, 250);
-  }, [deferredSearchTerm, search]);
+      search(searchTerm ?? "");
+    }, 200);
+  }, [searchTerm, search]);
 
   const context: SearchContextType = {
     setSearchTerm,

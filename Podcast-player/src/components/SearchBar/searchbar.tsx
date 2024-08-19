@@ -1,13 +1,15 @@
-import { memo, useId, FormEvent, useContext } from "react";
+import { useId, FormEvent, useContext } from "react";
 import styles from "./searchbar.module.css";
 import { Search } from "lucide-react";
 import { SearchContext } from "../Contexts/SearchContext";
+import { SearchButton } from "../SearchButton/SearchButton";
+
 interface inputs {
   placeholder: string;
   customClasses?: string;
   buttonTitle: string;
 }
-export const SearchBar = memo(function SearchBar({
+export const SearchBar = function SearchBar({
   placeholder,
   buttonTitle,
   customClasses,
@@ -15,6 +17,7 @@ export const SearchBar = memo(function SearchBar({
   const formID = useId();
   const inputID = useId();
   const buttonID = useId();
+
   const { searchTerm, setSearchTerm } = useContext(SearchContext);
 
   const handleSubmit = (event: FormEvent) => {
@@ -43,11 +46,12 @@ export const SearchBar = memo(function SearchBar({
           onChange={handleChange}
           placeholder={placeholder}
         />
-        <button id={buttonID} className={styles.searchAction} type="submit">
-          <Search />
-          {buttonTitle}
-        </button>
+        <SearchButton
+          id={buttonID}
+          buttonTitle={buttonTitle}
+          className={styles.searchAction}
+        />
       </form>
     </>
   );
-});
+};
