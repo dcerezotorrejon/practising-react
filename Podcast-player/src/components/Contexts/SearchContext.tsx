@@ -28,7 +28,7 @@ export const SearchContextProvider = ({
     window.clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       search(searchTerm ?? "");
-    }, 200);
+    }, 400);
   }, [searchTerm, search]);
 
   useEffect(() => {
