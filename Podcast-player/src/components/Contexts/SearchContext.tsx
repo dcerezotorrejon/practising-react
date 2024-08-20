@@ -24,11 +24,11 @@ export const SearchContextProvider = ({
   const { podcastSearchState, search } = useSearchPodcast();
   const debounceRef = useRef(-1);
   useEffect(() => {
-    setShowLoading(true);
     window.clearTimeout(debounceRef.current);
     debounceRef.current = setTimeout(() => {
       search(searchTerm ?? "");
     }, 400);
+    setShowLoading(true);
   }, [searchTerm, search]);
 
   useEffect(() => {

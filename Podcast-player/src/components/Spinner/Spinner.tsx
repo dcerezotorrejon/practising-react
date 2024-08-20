@@ -1,7 +1,7 @@
 import { memo } from "react";
 import style from "./Spinner.module.css";
 
-export const Spinner = memo(function Spinner() {
+export const Spinner = function Spinner() {
   return (
     <div className={style.skCubeGrid}>
       <div className={`${style.skCube} ${style.skCube1}`}></div>
@@ -15,4 +15,5 @@ export const Spinner = memo(function Spinner() {
       <div className={`${style.skCube} ${style.skCube9}`}></div>
     </div>
   );
-});
+};
+export const MemorizedSpinner = memo(Spinner);

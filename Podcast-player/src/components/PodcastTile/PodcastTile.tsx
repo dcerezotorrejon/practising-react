@@ -1,4 +1,4 @@
-import { SyntheticEvent, useCallback, useState, useTransition } from "react";
+import { SyntheticEvent, useCallback, useDeferredValue, useState } from "react";
 import { Podcast } from "../../models/models";
 import skeletonStyle from "../../styles/skeleton.module.css";
 import style from "./PodcastTile.module.css";
@@ -8,23 +8,21 @@ interface PodcastTileProps {
 }
 export function PodcastTile({ podcast }: PodcastTileProps) {
   const [imgLoading, setImgLoading] = useState(true);
-  const [, setImgTrans] = useTransition();
+  const deferredImgLoading = useDeferredValue(imgLoading);
   const handleLoad = useCallback((event: SyntheticEvent<HTMLImageElement>) => {
-    setImgTrans(() => {
-      setImgLoading(false);
-    });
+    setImgLoading(false);
     return event.target;
   }, []);
   return (
     <div className={style.tile}>
       <div className={style.tileImage}>
-        <picture className={imgLoading ? skeletonStyle.skeleton : ""}>
+        <picture className={deferredImgLoading ? skeletonStyle.skeleton : ""}>
           <source media="(max-width: 30px)" srcSet={podcast.artworkUrl30} />
           <source media="(max-width: 60px)" srcSet={podcast.artworkUrl60} />
           <source media="(max-width: 100px)" srcSet={podcast.artworkUrl100} />
           <img
             loading="lazy"
-            style={imgLoading ? { visibility: "hidden" } : {}}
+            style={deferredImgLoading ? { visibility: "hidden" } : {}}
             src={podcast.artworkUrl600}
             onLoad={handleLoad}
           />

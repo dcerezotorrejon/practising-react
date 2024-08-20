@@ -8,7 +8,7 @@ export class ItunesAPI {
     const abortController = new AbortController();
     const encodedTerm = window.encodeURI(term);
     const fetchData = fetch(
-      `https://itunes.apple.com/search?media=podcast&term=${encodedTerm}`,
+      `https://itunes.apple.com/search?media=podcast&term=${encodedTerm}&limit=200`,
       { signal: abortController.signal }
     );
     const reponsePromise = fetchData.then(

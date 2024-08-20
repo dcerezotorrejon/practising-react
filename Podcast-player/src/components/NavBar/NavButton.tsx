@@ -6,7 +6,7 @@ interface NavButtonProp {
   href?: string;
 }
 
-export default function NavButton({ icon, text, href }: NavButtonProp) {
+export default function NavButton({ icon, text }: NavButtonProp) {
   return (
     <>
       <button>
